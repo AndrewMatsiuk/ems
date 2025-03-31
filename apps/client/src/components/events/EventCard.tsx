@@ -1,28 +1,21 @@
 'use client';
 
-import {
-  CalendarToday,
-  LocationOn,
-  Edit,
-  Delete,
-  Share,
-  BookmarkBorder,
-  MoreVert,
-} from '@mui/icons-material';
+import { useEventContext } from '@/context/EventContext';
+import { CalendarToday, Delete, Edit, LocationOn } from '@mui/icons-material';
 import {
   Button,
-  IconButton,
   Card,
   CardActions,
   CardContent,
   CardMedia,
-  Typography,
   Chip,
+  IconButton,
+  Typography,
 } from '@mui/material';
-import { useEventContext } from '@/context/EventContext';
+import Link from 'next/link';
 import { useState } from 'react';
-import EditEventModal from './EditEventModal'; 
 import toast from 'react-hot-toast';
+import EditEventModal from './EditEventModal';
 
 interface EventCardProps {
   id: number;
@@ -48,21 +41,30 @@ export default function EventCard({
 
   const handleDelete = async () => {
     if (confirm('Are you sure you want to delete this event?')) {
-        try {
-            await deleteEvent(id);
-            toast.success('Event deleted');
-          } catch (err) {
-            toast.error('Failed to delete event');
-            console.error('Delete error:', err);
-          }
+      try {
+        await deleteEvent(id);
+        toast.success('Event deleted');
+      } catch (err) {
+        toast.error('Failed to delete event');
+        console.error('Delete error:', err);
+      }
     }
   };
 
   return (
     <>
-      <Card className="rounded shadow-md">
-        <CardMedia component="img" height="150" sx={{maxHeight:250}}  image={imageUrl} alt={title} />
-        <CardContent>
+      <Card
+        className="rounded shadow-md"
+        sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+      >
+        <CardMedia
+          component="img"
+          height="150"
+          sx={{ maxHeight: 150 }}
+          image={imageUrl}
+          alt={title}
+        />
+        <CardContent sx={{ flexGrow: 1 }}>
           <Chip label={category} size="small" className="mb-2" />
           <Typography gutterBottom variant="h6" fontWeight="bold">
             {title}
@@ -75,20 +77,30 @@ export default function EventCard({
             <LocationOn fontSize="small" className="mr-1" />
             {location}
           </div>
-          <Typography variant="body2" color="text.secondary" className="line-clamp-3">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            className="line-clamp-3"
+          >
             {description}
           </Typography>
         </CardContent>
         <CardActions className="justify-between px-3 pb-2">
-          <Button size="small" variant="contained">
+          <Button
+            size="small"
+            variant="contained"
+            component={Link}
+            href={`/events/${id}`}
+          >
             View Details
           </Button>
           <div className="flex gap-1">
-            <IconButton><Share fontSize="small" /></IconButton>
-            <IconButton><BookmarkBorder fontSize="small" /></IconButton>
-            <IconButton onClick={() => setEditOpen(true)}><Edit fontSize="small" /></IconButton>
-            <IconButton onClick={handleDelete}><Delete fontSize="small" /></IconButton>
-            <IconButton><MoreVert fontSize="small" /></IconButton>
+            <IconButton onClick={() => setEditOpen(true)}>
+              <Edit fontSize="small" />
+            </IconButton>
+            <IconButton onClick={handleDelete}>
+              <Delete fontSize="small" />
+            </IconButton>
           </div>
         </CardActions>
       </Card>

@@ -1,5 +1,6 @@
 'use client';
 
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import {
   Box,
   Drawer,
@@ -9,21 +10,11 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import EventIcon from '@mui/icons-material/Event';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import MapIcon from '@mui/icons-material/Map';
-import SettingsIcon from '@mui/icons-material/Settings';
-
-const navItems = [
-  { icon: <DashboardIcon />, label: 'Dashboard' },
-  { icon: <EventIcon />, label: 'My Events' },
-  { icon: <CalendarMonthIcon />, label: 'Calendar' },
-  { icon: <MapIcon />, label: 'Map View' },
-  { icon: <SettingsIcon />, label: 'Settings' },
-];
+import { useRouter } from 'next/navigation';
 
 export default function Sidebar() {
+  const router = useRouter();
+
   return (
     <Drawer
       variant="permanent"
@@ -45,12 +36,10 @@ export default function Sidebar() {
         </Box>
 
         <List>
-          {navItems.map((item) => (
-            <ListItem key={item.label}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.label} />
-            </ListItem>
-          ))}
+          <ListItem onClick={() => router.push('/')}>
+            <ListItemIcon>{<DashboardIcon />}</ListItemIcon>
+            <ListItemText primary={'Dashboard'} />
+          </ListItem>
         </List>
       </Box>
     </Drawer>
