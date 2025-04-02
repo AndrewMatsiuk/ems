@@ -20,6 +20,12 @@ export class Event {
   @Column({ nullable: true })
   description!: string;
 
-  @Column({ nullable: true }) 
+  @Column({ nullable: true })
   imageUrl!: string;
+
+  @Column('double precision', { nullable: true })
+  latitude!: number;
+
+  @Column('double precision', { nullable: true })
+  longitude!: number;
 }

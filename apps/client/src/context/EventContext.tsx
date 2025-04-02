@@ -1,15 +1,8 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { eventService, EventItem, CreateEventDto } from '@/services/eventService';
-
-interface EventContextType {
-  events: EventItem[];
-  fetchEvents: () => void;
-  createEvent: (data: CreateEventDto) => Promise<void>;
-  updateEvent: (id: number, data: Partial<EventItem>) => Promise<void>;
-  deleteEvent: (id: number) => Promise<void>;
-}
+import { eventService } from '@/services/eventService';
+import { CreateEventDto, EventContextType, EventItem } from '@/types';
 
 const EventContext = createContext<EventContextType | undefined>(undefined);
 
@@ -27,6 +20,7 @@ export const EventProvider = ({ children }: { children: React.ReactNode }) => {
 
   const createEvent = async (data: CreateEventDto) => {
     try {
+      console.log(data);
       const newEvent = await eventService.create(data);
       setEvents((prev) => [newEvent, ...prev]);
     } catch (err) {

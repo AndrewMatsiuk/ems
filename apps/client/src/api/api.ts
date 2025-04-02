@@ -1,16 +1,29 @@
+import axios, { AxiosRequestConfig } from 'axios';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
-export async function api<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const res = await fetch(`${API_URL}${endpoint}`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    ...options,
-  });
+const axiosInstance = axios.create({
+  baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
-  if (!res.ok) {
-    throw new Error(`API error: ${res.status}`);
+export async function api<T>(
+  endpoint: string,
+  options: AxiosRequestConfig = {}
+): Promise<T> {
+  try {
+    const response = await axiosInstance.request<T>({
+      url: endpoint,
+      method: options.method || 'GET',
+      ...options,
+    });
+
+    return response.data;
+  } catch (error: any) {
+    const status = error.response?.status;
+    const message = error.response?.data?.message || error.message;
+    throw new Error(`API error (${status}): ${message}`);
   }
-
-  return res.json();
 }

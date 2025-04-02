@@ -10,9 +10,5 @@ export default function HomePage() {
    *
    * Note: The corresponding styles are in the ./index.tailwind file.
    */
-  return (
-    <EventProvider>
-      <MainLayout />
-    </EventProvider>
-  );
+  return <MainLayout />;
 }

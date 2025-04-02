@@ -65,11 +65,17 @@ export default function EventCard({
           alt={title}
         />
         <CardContent sx={{ flexGrow: 1 }}>
-          <Chip label={category} size="small" className="mb-2" />
+          <Chip
+            label={category}
+            size="small"
+            className="mb-2"
+            color="primary"
+            variant="outlined"
+          />
           <Typography gutterBottom variant="h6" fontWeight="bold">
             {title}
           </Typography>
-          <div className="flex items-center text-sm text-gray-600 mb-1">
+          <div className="flex items-center text-sm text-gray-600 mb-2">
             <CalendarToday fontSize="small" className="mr-1" />
             {date}
           </div>

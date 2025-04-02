@@ -34,9 +34,24 @@ export default function Topbar({ onCreateClick, onCategoryChange, onSortChange, 
         bgcolor: '#fff',
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between', gap: 2, flexWrap: 'wrap' }}>
-        <Box display="flex" alignItems="center" gap={2} flexWrap="wrap" flex={1}>
-        <Select defaultValue="all" size="small" onChange={(e) => onCategoryChange(e.target.value)}>
+      <Toolbar
+        sx={{ justifyContent: 'space-between', gap: 4, flexWrap: 'wrap' }}
+      >
+        <Typography variant="h4" fontWeight="bold" color="primary">
+          EventFlow
+        </Typography>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={2}
+          flexWrap="wrap"
+          flex={1}
+        >
+          <Select
+            defaultValue="all"
+            size="small"
+            onChange={(e) => onCategoryChange(e.target.value)}
+          >
             <MenuItem value="all">All Categories</MenuItem>
             <MenuItem value="business">Business</MenuItem>
             <MenuItem value="education">Education</MenuItem>
@@ -46,7 +61,11 @@ export default function Topbar({ onCreateClick, onCategoryChange, onSortChange, 
             <MenuItem value="arts">Arts</MenuItem>
           </Select>
 
-          <Select defaultValue="newest" size="small" onChange={(e) => onSortChange(e.target.value)}>
+          <Select
+            defaultValue="newest"
+            size="small"
+            onChange={(e) => onSortChange(e.target.value)}
+          >
             <MenuItem value="newest">Date: Newest</MenuItem>
             <MenuItem value="oldest">Date: Oldest</MenuItem>
           </Select>
@@ -71,7 +90,12 @@ export default function Topbar({ onCreateClick, onCategoryChange, onSortChange, 
         </Box>
 
         <Box display="flex" alignItems="center" gap={1}>
-          <Button variant="contained" startIcon={<AddIcon />} sx={{ textTransform: 'none' }} onClick={onCreateClick}>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            sx={{ textTransform: 'none' }}
+            onClick={onCreateClick}
+          >
             Create Event
           </Button>
           <IconButton>

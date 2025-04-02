@@ -3,6 +3,7 @@ import './global.css';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
+import { EventProvider } from '@/context/EventContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,7 +17,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" className={inter.className}>
       <body>
         <MUIThemeProvider>
-          {children} <Toaster position="top-center" />
+          <EventProvider>
+            {children} <Toaster position="top-center" />
+          </EventProvider>
         </MUIThemeProvider>
       </body>
     </html>

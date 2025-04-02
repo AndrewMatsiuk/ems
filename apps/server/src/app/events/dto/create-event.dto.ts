@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsOptional, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 
 export class CreateEventDto {
   @IsNotEmpty()
@@ -22,6 +22,9 @@ export class CreateEventDto {
   description?: string;
 
   @IsOptional()
-  @IsUrl({}, { message: 'imageUrl must be a valid URL' })
+  @IsString()
   imageUrl?: string;
+
+  @IsOptional() latitude?: number;
+  @IsOptional() longitude?: number;
 }
